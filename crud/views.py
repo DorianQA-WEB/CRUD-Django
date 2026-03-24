@@ -1,14 +1,15 @@
 from importlib.metadata import requires
 
 from django.shortcuts import render
-from .forms import UserForm
+from .forms import PersonForm
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from .models import Person
 
 # Получение данных из БД
 def index(request):
+    person = PersonForm()
     people = Person.objects.all()
-    return render(request, 'index.html', {'people': people})
+    return render(request, 'index.html', {'form': form, 'people': people})
 
 
 
