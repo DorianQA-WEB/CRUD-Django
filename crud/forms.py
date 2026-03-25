@@ -1,6 +1,12 @@
-from django import forms
+from django.forms import ModelForm, CharField, IntegerField
+from .models import Person
+
+class PersonForm(ModelForm):
+    name = CharField(label="Имя пользователя",)
+    age = IntegerField(label="Введите возраст")
 
 
-class PersonForm(forms.Form):
-    name = forms.CharField(label="Имя пользователя",)
-    age = forms.IntegerField(label="Введите возраст")
+    class Meta:
+        model = Person
+        fields = ['name', 'age']
+

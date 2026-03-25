@@ -1,13 +1,11 @@
-from importlib.metadata import requires
-
 from django.shortcuts import render
-from .forms import PersonForm
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpRequest
 from .models import Person
+from .forms import PersonForm
 
 # Получение данных из БД
 def index(request):
-    person = PersonForm()
+    form = PersonForm()
     people = Person.objects.all()
     return render(request, 'index.html', {'form': form, 'people': people})
 
@@ -16,10 +14,9 @@ def index(request):
 # Сохранение данных в БД
 def create(request):
     if request.method == 'POST':
-        person = Person()
-        person.name = request.POST.get('name')
-        person.age = request.POST.get("age")
-        person.save()
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
     return HttpResponseRedirect('/')
 
 # Изменение данных в БД
@@ -30,12 +27,12 @@ def edit(request, id):
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
     if request.method == 'POST':
-        person.name = request.POST.get('name')
-        person.age = request.POST.get('age')
-        person.save()
+        form = PersonForm(request.POST, instance=person)
+        form.save()
         return HttpResponseRedirect('/')
     else:
-        return render(request, 'edit.html', {'person': person})
+        form = PersonForm(instance=person)
+        return render(request, 'edit.html', {'form': form})
 
 # Удаление данных из БД
 def delete(request, id):
