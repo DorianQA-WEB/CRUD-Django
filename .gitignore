@@ -1,5 +1,6 @@
-SecondProjectDjango/settings.py
+CRUDProjectDjango/settings.py
 .venv
 .idea/
 __pycache__/
 db.sqlite3
+.venv
