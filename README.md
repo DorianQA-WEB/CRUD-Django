@@ -39,7 +39,7 @@ class Meta:
 ## Установка и запуск
 
 1. Клонируйте репозиторий:
-   bash git clone <ссылка_на_репозиторий> cd CRUDProjectDjango\
+   bash git clone https://github.com/DorianQA-WEB/CRUD-Django.git cd CRUDProjectDjango\
 
 2. Создайте виртуальное окружение и активируйте его:
     bash python -m venv .venv source .venv/bin/activate # Linux/Mac
